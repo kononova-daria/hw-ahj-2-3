@@ -44,7 +44,7 @@ app.use(koaBody({
   json: true,
 }));
 
-const tickets = [
+let tickets = [
   {
     id: 1,
     name: 'Установить обновление КВ-ХХХ',
@@ -63,9 +63,9 @@ const tickets = [
 
 app.use(async (ctx) => {
   // eslint-disable-next-line no-undef
-  if (ctx.request.method === 'GET') ({ method } = ctx.request.query);
+  if (ctx.request.method === 'GET' || ctx.request.method === 'DELETE') ({ method } = ctx.request.query);
   // eslint-disable-next-line no-undef
-  if (ctx.request.method === 'POST') ({ method } = ctx.request.body);
+  if (ctx.request.method === 'POST' || ctx.request.method === 'PUT') ({ method } = ctx.request.body);
 
   // eslint-disable-next-line no-undef
   switch (method) {
@@ -86,6 +86,15 @@ app.use(async (ctx) => {
         status: false,
         created: new Date().getTime(),
       });
+      return;
+    case 'deleteTicket':
+      tickets = tickets.filter((item) => item.id !== ctx.request.query.id);
+      return;
+    case 'editTicket':
+      // eslint-disable-next-line no-case-declarations
+      const ticket = tickets.find((item) => item.id === ctx.request.body.id);
+      ticket.name = ctx.request.body.name;
+      ticket.description = ctx.request.body.description;
       return;
     default:
       ctx.response.status = 404;
