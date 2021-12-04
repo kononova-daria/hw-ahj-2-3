@@ -49,6 +49,7 @@
     "webpack-merge": "^5.7.3"
   },
   "dependencies": {
+    "@koa/cors": "^3.1.0",
     "core-js": "^3.18.2",
     "forever": "^4.0.1",
     "koa": "^2.13.4",

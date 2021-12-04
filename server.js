@@ -1,9 +1,11 @@
 const http = require('http');
 const Koa = require('koa');
+const cors = require('@koa/cors');
 const koaBody = require('koa-body');
 const { parse } = require('path');
 
 const app = new Koa();
+app.use(cors());
 
 const port = process.env.PORT || 7070;
 // eslint-disable-next-line no-unused-vars
