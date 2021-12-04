@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "prestart": "npm install",
-    "start": "forever server.js",
+    "start": "node index.js",
     "watch": "forever -w server.js",
     "build": "webpack --config webpack.prod.js",
     "lint": "eslint .",
