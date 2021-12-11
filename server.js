@@ -2,13 +2,13 @@ const http = require('http');
 const Koa = require('koa');
 const koaBody = require('koa-body');
 const cors = require('koa2-cors');
-const { parse } = require('path');
 
 const app = new Koa();
 
 app.use(koaBody({
   urlencoded: true,
   multipart: true,
+  text: true,
   json: true,
 }));
 
@@ -57,8 +57,8 @@ app.use(async (ctx) => {
     case 'createTicket':
       tickets.push({
         id: tickets.length + 1,
-        name: parse.ctx.request.body.name,
-        description: parse.ctx.request.body.description,
+        name: ctx.request.body.name,
+        description: ctx.request.body.description,
         status: false,
         created: new Date().getTime(),
       });
