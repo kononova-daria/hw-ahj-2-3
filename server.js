@@ -40,8 +40,8 @@ let tickets = [
 
 app.use(async (ctx) => {
   let method;
-  if (ctx.request.method === 'GET' || ctx.request.method === 'DELETE') ({ method } = ctx.request.query);
-  if (ctx.request.method === 'POST' || ctx.request.method === 'PUT') ({ method } = ctx.request.body);
+  if (ctx.request.method === 'GET') ({ method } = ctx.request.query);
+  if (ctx.request.method === 'POST') ({ method } = ctx.request.body);
 
   let ticket;
 
@@ -52,7 +52,8 @@ app.use(async (ctx) => {
       }));
       return;
     case 'ticketById':
-      ctx.response.body = tickets.find((item) => item.id === ctx.request.query.id);
+      // ctx.response.body = tickets.find((item) => item.id === ctx.request.query.id);
+      ctx.response.body = ctx.request.query;
       return;
     case 'createTicket':
       tickets.push({
