@@ -40,8 +40,8 @@ let tickets = [
 
 app.use(async (ctx) => {
   let method;
-  if (ctx.request.method === 'GET') ({ method } = ctx.request.query);
-  if (ctx.request.method === 'POST') ({ method } = ctx.request.body);
+  if (ctx.request.method === 'GET' || ctx.request.method === 'DELETE') ({ method } = ctx.request.query);
+  if (ctx.request.method === 'POST' || ctx.request.method === 'PUT') ({ method } = ctx.request.body);
 
   let ticket;
 
