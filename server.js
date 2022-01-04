@@ -39,9 +39,7 @@ let tickets = [
 ];
 
 app.use(async (ctx) => {
-  let method;
-  if (ctx.request.method === 'GET' || ctx.request.method === 'DELETE') ({ method } = ctx.request.query);
-  if (ctx.request.method === 'POST' || ctx.request.method === 'PUT') ({ method } = ctx.request.query);
+  const { method } = ctx.request.query;
 
   let ticket;
 
@@ -55,14 +53,14 @@ app.use(async (ctx) => {
       ctx.response.body = tickets.find((item) => item.id === Number(ctx.request.query.id));
       return;
     case 'createTicket':
-      /* tickets.push({
+      tickets.push({
         id: tickets[tickets.length].id + 1,
         name: ctx.request.body.name,
         description: ctx.request.body.description,
-        status: false,
+        status: ctx.request.body.status,
         created: new Date().getTime(),
-      }); */
-      ctx.response.body = ctx.request.body;
+      });
+      ctx.response.body = tickets;
       return;
     case 'deleteTicket':
       tickets = tickets.filter((item) => item.id !== Number(ctx.request.query.id));
