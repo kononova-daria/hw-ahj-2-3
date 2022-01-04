@@ -62,15 +62,17 @@ app.use(async (ctx) => {
         status: false,
         created: new Date().getTime(),
       });
+      ctx.response.body = tickets;
       return;
     case 'deleteTicket':
       tickets = tickets.filter((item) => item.id !== Number(ctx.request.query.id));
-      ctx.response.body = 'OK';
+      ctx.response.body = tickets;
       return;
     case 'editTicket':
       ticket = tickets.find((item) => item.id === ctx.request.body.id);
       ticket.name = ctx.request.body.name;
       ticket.description = ctx.request.body.description;
+      ctx.response.body = tickets;
       return;
     default:
       ctx.response.status = 404;
