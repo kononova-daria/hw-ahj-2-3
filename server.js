@@ -56,7 +56,7 @@ app.use(async (ctx) => {
       return;
     case 'createTicket':
       tickets.push({
-        id: tickets.length + 1,
+        id: tickets[tickets.length].id + 1,
         name: ctx.request.body.name,
         description: ctx.request.body.description,
         status: false,
@@ -69,7 +69,7 @@ app.use(async (ctx) => {
       ctx.response.body = tickets;
       return;
     case 'editTicket':
-      ticket = tickets.find((item) => item.id === ctx.request.body.id);
+      ticket = tickets.find((item) => item.id === Number(ctx.request.body.id));
       ticket.name = ctx.request.body.name;
       ticket.description = ctx.request.body.description;
       ctx.response.body = tickets;
