@@ -64,7 +64,8 @@ app.use(async (ctx) => {
       });
       return;
     case 'deleteTicket':
-      tickets = tickets.filter((item) => item.id !== ctx.request.query.id);
+      tickets = tickets.filter((item) => item.id !== Number(ctx.request.query.id));
+      ctx.response.body = 'OK';
       return;
     case 'editTicket':
       ticket = tickets.find((item) => item.id === ctx.request.body.id);
