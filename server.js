@@ -52,8 +52,7 @@ app.use(async (ctx) => {
       }));
       return;
     case 'ticketById':
-      // ctx.response.body = tickets.find((item) => item.id === ctx.request.query.id);
-      ctx.response.body = ctx.request.query;
+      ctx.response.body = tickets.find((item) => item.id === ctx.request.query.id);
       return;
     case 'createTicket':
       tickets.push({
