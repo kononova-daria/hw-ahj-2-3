@@ -52,7 +52,7 @@ app.use(async (ctx) => {
       }));
       return;
     case 'ticketById':
-      ctx.response.body = tickets.find((item) => item.id === 1);
+      ctx.response.body = tickets.find((item) => item.id === Number(ctx.request.query.id));
       return;
     case 'createTicket':
       tickets.push({
