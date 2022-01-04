@@ -57,7 +57,7 @@ app.use(async (ctx) => {
         id: tickets[tickets.length].id + 1,
         name: ctx.request.body.name,
         description: ctx.request.body.description,
-        status: ctx.request.body.status,
+        status: false,
         created: new Date().getTime(),
       });
       ctx.response.body = tickets;
@@ -70,6 +70,7 @@ app.use(async (ctx) => {
       ticket = tickets.find((item) => item.id === Number(ctx.request.body.id));
       ticket.name = ctx.request.body.name;
       ticket.description = ctx.request.body.description;
+      ticket.status = ctx.request.body.status;
       ctx.response.body = tickets;
       return;
     default:
