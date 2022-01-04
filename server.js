@@ -43,7 +43,7 @@ app.use(async (ctx) => {
   if (ctx.request.method === 'GET' || ctx.request.method === 'DELETE') ({ method } = ctx.request.query);
   if (ctx.request.method === 'POST' || ctx.request.method === 'PUT') ({ method } = ctx.request.query);
 
-  // let ticket;
+  let ticket;
 
   switch (method) {
     case 'allTickets':
@@ -55,13 +55,13 @@ app.use(async (ctx) => {
       ctx.response.body = tickets.find((item) => item.id === Number(ctx.request.query.id));
       return;
     case 'createTicket':
-      tickets.push({
+      /* tickets.push({
         id: tickets[tickets.length].id + 1,
         name: ctx.request.body.name,
         description: ctx.request.body.description,
         status: false,
         created: new Date().getTime(),
-      });
+      }); */
       ctx.response.body = tickets;
       return;
     case 'deleteTicket':
@@ -69,10 +69,10 @@ app.use(async (ctx) => {
       ctx.response.body = tickets;
       return;
     case 'editTicket':
-      // ticket = tickets.find((item) => item.id === Number(ctx.request.body.id));
-      // ticket.name = ctx.request.body.name;
-      // ticket.description = ctx.request.body.description;
-      ctx.response.body = ctx.request;
+      ticket = tickets.find((item) => item.id === Number(ctx.request.body.id));
+      ticket.name = ctx.request.body.name;
+      ticket.description = ctx.request.body.description;
+      ctx.response.body = tickets;
       return;
     default:
       ctx.response.status = 404;
