@@ -69,10 +69,10 @@ app.use(async (ctx) => {
       ctx.response.body = tickets;
       return;
     case 'editTicket':
-      ticket = tickets.find((item) => item.id === Number(ctx.request.body.id));
-      ticket.name = ctx.request.body.name;
-      ticket.description = ctx.request.body.description;
-      ctx.response.body = tickets;
+      // ticket = tickets.find((item) => item.id === Number(ctx.request.body.id));
+      // ticket.name = ctx.request.body.name;
+      // ticket.description = ctx.request.body.description;
+      ctx.response.body = Number(ctx.request.body.id);
       return;
     default:
       ctx.response.status = 404;
