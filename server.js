@@ -72,7 +72,7 @@ app.use(async (ctx) => {
       // ticket = tickets.find((item) => item.id === Number(ctx.request.body.id));
       // ticket.name = ctx.request.body.name;
       // ticket.description = ctx.request.body.description;
-      ctx.response.body = ctx.request.body;
+      ctx.response.body = ctx.request;
       return;
     default:
       ctx.response.status = 404;
