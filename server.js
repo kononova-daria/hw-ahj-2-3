@@ -62,7 +62,7 @@ app.use(async (ctx) => {
         status: false,
         created: new Date().getTime(),
       });
-      ctx.response.body = tickets;
+      // ctx.response.body = tickets;
       return;
     case 'deleteTicket':
       tickets = tickets.filter((item) => item.id !== Number(ctx.request.query.id));
