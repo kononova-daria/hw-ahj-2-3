@@ -16,9 +16,8 @@ app.use(
   cors({
     origin: '*',
     credentials: true,
-    // 'Access-Control-Allow-Origin': true,
+    'Access-Control-Allow-Origin': true,
     allowMethods: ['GET', 'PUT', 'POST', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'],
-    allowHeaders: ['Content-Type', 'Authorization', 'Accept'],
   }),
 );
 
@@ -43,6 +42,7 @@ app.use(async (ctx) => {
   const { method } = ctx.request.query;
 
   let ticket;
+  let inputData;
 
   switch (method) {
     case 'allTickets':
@@ -54,10 +54,11 @@ app.use(async (ctx) => {
       ctx.response.body = tickets.find((item) => item.id === Number(ctx.request.query.id));
       return;
     case 'createTicket':
+      inputData = JSON.parse(ctx.request.body);
       tickets.push({
         id: tickets[tickets.length].id + 1,
-        name: ctx.request.body.name,
-        description: ctx.request.body.description,
+        name: inputData.name,
+        description: inputData.description,
         status: false,
         created: new Date().getTime(),
       });
