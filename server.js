@@ -26,15 +26,15 @@ let tickets = [
     id: 1,
     name: 'Установить обновление КВ-ХХХ',
     description: 'Вышло критическое обновление для Windows, нужно поставить обновления в следующем приоритете: 1. Сервера 2. Рабочие станции',
-    status: false,
-    created: 1636445942,
+    status: true,
+    created: 1612543928473,
   },
   {
     id: 2,
     name: 'Переустановить Windows, ПК-Hall24',
     description: 'Переустановить Windows, ПК-Hall24',
     status: false,
-    created: 1636352342,
+    created: 1620579128473,
   },
 ];
 
@@ -56,11 +56,11 @@ app.use(async (ctx) => {
     case 'createTicket':
       inputData = JSON.parse(ctx.request.body);
       tickets.push({
-        id: tickets[tickets.length].id + 1,
+        id: tickets[tickets.length - 1].id + 1,
         name: inputData.name,
         description: inputData.description,
         status: false,
-        created: new Date().getTime(),
+        created: (new Date()).getTime(),
       });
       ctx.response.body = tickets;
       return;
@@ -69,10 +69,16 @@ app.use(async (ctx) => {
       ctx.response.body = tickets;
       return;
     case 'editTicket':
-      ticket = tickets.find((item) => item.id === Number(ctx.request.body.id));
-      ticket.name = ctx.request.body.name;
-      ticket.description = ctx.request.body.description;
-      ticket.status = ctx.request.body.status;
+      inputData = JSON.parse(ctx.request.body);
+      ticket = tickets.find((item) => item.id === Number(ctx.request.query.id));
+      ticket.name = inputData.name;
+      ticket.description = inputData.description;
+      ctx.response.body = tickets;
+      return;
+    case 'editStatus':
+      inputData = JSON.parse(ctx.request.body);
+      ticket = tickets.find((item) => item.id === Number(ctx.request.query.id));
+      ticket.status = (inputData.status === 'true');
       ctx.response.body = tickets;
       return;
     default:
@@ -80,7 +86,7 @@ app.use(async (ctx) => {
   }
 });
 
-const port = process.env.PORT || 7070;
+const port = process.env.PORT || 8120;
 const server = http.createServer(app.callback());
 server.listen(port, (err) => {
   if (err) {
